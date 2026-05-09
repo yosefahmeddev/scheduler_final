@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CPU Scheduling — RR vs SJF</title>
+
+  <!--
+    All styles live in style.css — nothing is written inline here.
+    This keeps the HTML clean and all visual changes in one place.
+  -->
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+    <div>
+      <div class="header-title">CPU Scheduling Comparison</div>
+      <div class="header-subtitle">Round Robin vs Shortest Job First — Interactive Simulator</div>
+    </div>
+    <div class="header-badges">
+      <span class="badge badge-rr">ROUND ROBIN</span>
+      <span class="badge badge-sjf">SJF (Non-preemptive)</span>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <div class="left-panel">
+      <div class="panel">
+
+        <!-- Scenario buttons -->
+        <div class="section-title">Test Scenarios</div>
+        <div class="scenario-grid">
+          <button class="scenario-btn" onclick="loadScenario('A')">
+            <span class="sc-sub">Scenario A</span>Mixed Workload
+          </button>
+          <button class="scenario-btn" onclick="loadScenario('B')">
+            <span class="sc-sub">Scenario B</span>Short-Job Heavy
+          </button>
+          <button class="scenario-btn" onclick="loadScenario('C')">
+            <span class="sc-sub">Scenario C</span>Fairness Case
+          </button>
+          <button class="scenario-btn" onclick="loadScenario('D')">
+            <span class="sc-sub">Scenario D</span>Long-Job Sensitivity
+          </button>
+          <button class="scenario-btn" onclick="loadScenario('custom')">
+            <span class="sc-sub">Custom</span>Clear &amp; Build Own
+          </button>
+        </div>
+
+        <!-- Quantum input -->
+        <div class="section-title mt-12">Quantum (Time Slice)</div>
+        <div class="quantum-row">
+          <label class="quantum-label" for="quantumInput">Q =</label>
+          <input type="number" id="quantumInput" class="quantum-input" value="3" min="1" max="100">
+          <span class="quantum-hint">time units per RR slice</span>
+        </div>
+
+        <!-- Process table -->
+        <div class="section-title mt-12">Process Table</div>
+        <div class="proc-table-wrap">
+          <table class="proc-table">
+            <thead>
+              <tr>
+                <th>PID</th>
+                <th>Arrival</th>
+                <th>Burst</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="procBody">
+              <!-- Rows are added by JavaScript (addRow function in app.js) -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Add row button -->
+        <button class="btn-ghost" onclick="addRow()">+ Add Process</button>
+
+        <!-- Validation message (hidden until JS shows it) -->
+        <div id="valMsg" class="val-msg"></div>
+
+        <!-- Run button -->
+        <button class="btn-run" onclick="runSimulation()">▶ Run Simulation</button>
+
+      </div>
+    </div>
+    <div class="right-panel">
+      <div class="panel">
+
+        <!-- Tab navigation buttons -->
+        <div class="tab-bar">
+          <button class="tab-btn active" onclick="switchTab('rr',  this)">Round Robin</button>
+          <button class="tab-btn" onclick="switchTab('sjf', this)">SJF</button>
+          <button class="tab-btn" onclick="switchTab('cmp', this)">Comparison</button>
+        </div>
+        <div id="pane-rr" class="tab-pane active">
+
+          <h3>Ready Queue Snapshot</h3>
+          <div id="rrQueue" class="queue-viz">
+            <span class="queue-empty">Run simulation to view the ready queue</span>
+          </div>
+
+          <h3>Gantt Chart — Round Robin</h3>
+          <div id="rrGantt" class="gantt-wrap">
+            <div class="gantt-placeholder">Run simulation to view Gantt chart</div>
+          </div>
+
+          <h3>Metrics — Round Robin</h3>
+          <div id="rrMetrics">
+            <p style="color:var(--text-faint);font-size:12px;font-style:italic">
+              Press ▶ Run Simulation to see results
+            </p>
+          </div>
+
+        </div>
+
+        <div id="pane-sjf" class="tab-pane">
+
+          <h3>Gantt Chart — SJF (Non-preemptive)</h3>
+          <div id="sjfGantt" class="gantt-wrap">
+            <div class="gantt-placeholder">Run simulation to view Gantt chart</div>
+          </div>
+
+          <h3>Metrics — SJF</h3>
+          <div id="sjfMetrics">
+            <p style="color:var(--text-faint);font-size:12px;font-style:italic">
+              Press ▶ Run Simulation to see results
+            </p>
+          </div>
+
+        </div>
+
+        <div id="pane-cmp" class="tab-pane">
+
+          <h3>Metric Comparison</h3>
+          <div id="compareGrid" class="compare-grid">
+            <p class="compare-placeholder" style="grid-column:1/-1">
+              Run simulation to compare algorithms
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+  <section id="conclusionPanel" class="conclusion-panel">
+
+    <h2>Analysis &amp; Conclusion</h2>
+    <div id="qaGrid" class="qa-grid"></div>
+
+    <div id="conclusionCards" class="conclusion-cards"></div>
+  </section>
+
+  <script src="/static/js/app.js"></script>
+
+</body>
+
+</html>
