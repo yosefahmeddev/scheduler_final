@@ -91,3 +91,5 @@ User clicks ▶ Run
 | `frontend/index.html` | The page layout — no styles, no logic |
 | `frontend/css/style.css` | Every colour, size, and visual rule |
 | `frontend/js/app.js` | Sends API requests, draws Gantt SVGs, builds tables |
+
+Team members, Yousef Ahmed, Ahmed Osman, Mohammed Ahraf, Mohammed Ali, Mohamed Yehia, Mohammed Abdullah, Doaa Kamel
